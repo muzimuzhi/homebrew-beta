@@ -2,12 +2,8 @@ cask "texstudio-beta" do
   arch arm: "-m1"
 
   version "4.8.6rc2"
-  sha256 arm:          "31331ace032ad6d9f183c65271b59bbb0613a1832598d25fd4b279cbd61bac26",
-         intel:        "31055860be926efc3254d9818ef8d16de32f8158aaf7cf49439f19caec10bd2c",
-         # see https://github.com/orgs/Homebrew/discussions/6008#discussioncomment-12636532
-         # The bug was reported to https://github.com/Homebrew/homebrew-cask/issues/205491
-         arm64_linux:  "0",
-         x86_64_linux: "0"
+  sha256 arm:   "31331ace032ad6d9f183c65271b59bbb0613a1832598d25fd4b279cbd61bac26",
+         intel: "31055860be926efc3254d9818ef8d16de32f8158aaf7cf49439f19caec10bd2c"
 
   on_arm do
     depends_on macos: ">= :sonoma"

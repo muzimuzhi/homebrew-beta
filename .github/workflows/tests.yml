@@ -29,6 +29,9 @@ jobs:
       - run: brew test-bot --only-setup
 
       - run: brew test-bot --only-tap-syntax
+        # work around https://github.com/Homebrew/homebrew-cask/issues/205491
+        # see also https://github.com/Homebrew/homebrew-cask/blob/a35322af809779b0a9800b739af4a4ef71d788c4/.github/workflows/ci.yml#L124-L127
+        if: runner.os == 'macOS'
 
       - run: brew test-bot --only-formulae --root-url='https://ghcr.io/v2/${{ github.repository }}'
         if: github.event_name == 'pull_request'
