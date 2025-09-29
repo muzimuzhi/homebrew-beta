@@ -8,12 +8,7 @@ cask "texstudio-beta" do
     sha256 arm:   "c7b66d492a1041c7bf44da1e6f18e877fc58676e2c1008397a3eda878a003d88",
            intel: "2b378b26b0aa7e9e51a9707bce4c400fe8d55ee340840abd7b766cc4a849640f"
 
-    on_arm do
-      depends_on macos: ">= :sonoma"
-    end
-    on_intel do
-      depends_on macos: ">= :big_sur"
-    end
+    depends_on macos: ">= :monterey"
 
     url "https://github.com/texstudio-org/texstudio/releases/download/#{version}/texstudio-#{version}-osx#{arch}.zip",
         verified: "github.com/texstudio-org/texstudio/"
