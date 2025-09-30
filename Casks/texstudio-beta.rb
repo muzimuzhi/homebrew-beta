@@ -4,9 +4,9 @@ cask "texstudio-beta" do
   on_macos do
     arch arm: "-m1"
 
-    version "4.9.0beta1"
-    sha256 arm:   "2ecbc599d256aa8907d5f8ae8f915ee9c8a5440a2a55a51499df8d13391be7ba",
-           intel: "bb86471c58139551a88242808160d2b04b962e1c0a294b29b278c03ca101a42e"
+    version "4.9.0beta2"
+    sha256 arm:   "fa7418547d5d3ddcbdd134dfe0ca7ce07c9429302ca9a44003b74e10d4234241",
+           intel: "542202e76bead131dd8a2026ff52ae92d3327daf048c235d5163e34e568644c8"
 
     depends_on macos: ">= :monterey"
 
