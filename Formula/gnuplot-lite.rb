@@ -11,12 +11,9 @@ class GnuplotLite < Formula
   end
 
   bottle do
-    sha256 arm64_tahoe:   "955fa674228be8dfeaeaaff768395a020923d859dc68a3f310488247e3ce4415"
-    sha256 arm64_sequoia: "09d2a9f66dfc73e37386e1223398a68d5ce218be88c1071aa718163d9ed61048"
-    sha256 arm64_sonoma:  "48dd121ea7f5d69f691e0388bf2c2b6361c3bb70183157198ae96ac40838c7d1"
-    sha256 sonoma:        "3bdf53b8e9713d484b746bd7b9abe32f8d636fbbaa658edddcbe2d1e15b3d965"
-    sha256 arm64_linux:   "facb27cb1f528d403d1680de96d6ec069ee47bb71c4fd3b964f2877f50f6cb9b"
-    sha256 x86_64_linux:  "d72dfd859cb4e2332bde4404b84e8158b8395a0a887b0a0f9f24a98d5125baa6"
+    root_url "https://ghcr.io/v2/muzimuzhi/beta"
+    sha256 arm64_tahoe:  "6a9ef922907fd5d86eff33f3cc8a6d1325cb196dce7dab624dd371635138bae9"
+    sha256 x86_64_linux: "174bd5e721d22290ff2952d227e142d3b64f3df807c4c904fdbd1c265bc7a4be"
   end
 
   head do
