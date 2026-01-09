@@ -12,8 +12,8 @@ class GnuplotLite < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/muzimuzhi/beta"
-    sha256 arm64_tahoe:  "6a9ef922907fd5d86eff33f3cc8a6d1325cb196dce7dab624dd371635138bae9"
-    sha256 x86_64_linux: "174bd5e721d22290ff2952d227e142d3b64f3df807c4c904fdbd1c265bc7a4be"
+    sha256 arm64_tahoe:  "91393d0bf082c4ddbbd49d8f61af0c3e4b9cf507046adbf5b07110c6a6cc6d2a"
+    sha256 x86_64_linux: "2578d9a937c77b68c3d0f924d60a4785aeaa70d798b4358a346916ef5580b0dc"
   end
 
   head do
