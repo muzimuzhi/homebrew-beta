@@ -21,7 +21,7 @@ brew bump-cask-pr muzimuzhi/beta/CASK --version=VERSION [--write-only]
 brew tap-new --github-packages --no-git USER/REPO
 ```
 
-## links and Docs
+## Helpful links
 
 - TeXstudio’s release page \
   https://github.com/texstudio-org/texstudio/releases/
