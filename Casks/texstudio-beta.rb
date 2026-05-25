@@ -4,11 +4,11 @@ cask "texstudio-beta" do
   on_macos do
     arch arm: "-m1"
 
-    version "4.9.4rc2"
-    sha256 arm:   "485560f139206fd32e25bf3f22844b92859cc7178f27fd587f34f5ac7eb6de4f",
-           intel: "aeb7fcc38787968c5e2e45fce23f5e3bf458d013348d8bb9125cc27b810676a1"
+    version "4.9.5alpha1"
+    sha256 arm:   "2df902a70d268043433ddde2334bb735fd96a7ac29ca9bc846c248e46d338fe9",
+           intel: "2d3f79e904928f12f706565f3d04f995523db6806fc606a3b352ac3ab3c90734"
 
-    depends_on macos: ">= :ventura"
+    depends_on macos: :ventura
 
     url "https://github.com/texstudio-org/texstudio/releases/download/#{version}/texstudio-#{version}-osx#{arch}.zip",
         verified: "github.com/texstudio-org/texstudio/"
