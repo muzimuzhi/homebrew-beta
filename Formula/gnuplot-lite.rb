@@ -47,7 +47,7 @@ class GnuplotLite < Formula
     # https://sourceforge.net/p/gnuplot/gnuplot-main/ci/master/tree/configure.ac
     args = %W[
       --disable-silent-rules
-      --with-readline=#{Formula["readline"].opt_prefix}
+      --with-readline=#{formula_opt_prefix("readline")}
       --disable-wxwidgets
       --with-qt=no
       --without-x
