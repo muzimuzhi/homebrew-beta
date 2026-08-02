@@ -4,11 +4,9 @@ cask "texstudio-beta" do
   on_macos do
     arch arm: "-m1"
 
-    version "4.9.6rc2"
-    sha256 arm:   "463e8203519dd4d83878955f10e9c2f5b2e0c972fd9030f392c61003cd69ec97",
-           intel: "ecf4fd0cfef696abf15c851546ce6f7bfe18834a7efe0e1b4ba1272bda76ea31"
-
-    depends_on macos: :ventura
+    version "4.9.7alpha1"
+    sha256 arm:   "e976efcb3e7ca35ad57b07fdd0bb365ca7626f5003f8ce1ab1f410290b1a5d83",
+           intel: "4615aff069e08a8437a65d1fe74608c5c747d0d22fafa732903406c3eb5f099f"
 
     url "https://github.com/texstudio-org/texstudio/releases/download/#{version}/texstudio-#{version}-osx#{arch}.zip",
         verified: "github.com/texstudio-org/texstudio/"
@@ -38,6 +36,7 @@ cask "texstudio-beta" do
     end
 
     conflicts_with cask: "texstudio"
+    depends_on macos: :ventura
 
     # it's NOT recommended to rename the target only for removing version numbers
     # https://docs.brew.sh/Cask-Cookbook#target-should-only-be-used-in-select-cases
