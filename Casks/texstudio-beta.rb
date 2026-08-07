@@ -42,7 +42,7 @@ cask "texstudio-beta" do
   # learnt from https://github.com/Homebrew/homebrew-cask/blob/03a0edb4616198f6f64b285dbf842bc3b73a7f31/Casks/p/parallels.rb#L36-L41
   postflight do
     system_command "xattr",
-                    args: ["-dr", "com.apple.quarantine", "#{appdir}/texstudio-#{version}-osx#{arch}.app"]
+                   args: ["-dr", "com.apple.quarantine", "#{appdir}/texstudio-#{version}-osx#{arch}.app"]
   end
 
   zap trash: [
