@@ -19,29 +19,29 @@ class GnuplotLite < Formula
   head do
     url "https://git.code.sf.net/p/gnuplot/gnuplot-main.git", branch: "master"
 
-    depends_on "autoconf" => :build
-    depends_on "automake" => :build
-    depends_on "libtool" => :build
+    depends_on "homebrew/core/autoconf" => :build
+    depends_on "homebrew/core/automake" => :build
+    depends_on "homebrew/core/libtool" => :build
   end
 
-  depends_on "pkgconf" => :build
+  depends_on "homebrew/core/pkgconf" => :build
 
-  depends_on "cairo"
-  depends_on "gd"
-  depends_on "glib"
-  depends_on "libcerf"
-  depends_on "lua"
-  depends_on "pango"
-  depends_on "readline"
-  depends_on "webp"
+  depends_on "homebrew/core/cairo"
+  depends_on "homebrew/core/gd"
+  depends_on "homebrew/core/glib"
+  depends_on "homebrew/core/libcerf"
+  depends_on "homebrew/core/lua"
+  depends_on "homebrew/core/pango"
+  depends_on "homebrew/core/readline"
+  depends_on "homebrew/core/webp"
 
   on_macos do
-    depends_on "gettext"
-    depends_on "harfbuzz"
+    depends_on "homebrew/core/gettext"
+    depends_on "homebrew/core/harfbuzz"
   end
 
   # https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/g/gnuplot.rb
-  conflicts_with "gnuplot", because: "both install the same-named executables"
+  conflicts_with "homebrew/core/gnuplot", because: "both install the same-named executables"
 
   def install
     # https://sourceforge.net/p/gnuplot/gnuplot-main/ci/master/tree/configure.ac
