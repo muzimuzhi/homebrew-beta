@@ -1,3 +1,5 @@
+# texstudio cask: https://github.com/Homebrew/homebrew-cask/blob/HEAD/Casks/t/texstudio.rb
+
 cask "texstudio-beta" do
   arch arm: "-m1"
 
@@ -32,10 +34,11 @@ cask "texstudio-beta" do
     #   strategy :page_match
   end
 
-  conflicts_with cask: "texstudio"
+  # "texstudio-beta" does not conflict with cask "texstudio" due to different
+  # version string in the app name, so no `conflicts_with` stanza is needed.
   depends_on macos: :ventura
 
-  # it's NOT recommended to rename the target only for removing version numbers
+  # It's NOT recommended to rename the target only for removing version numbers.
   # https://docs.brew.sh/Cask-Cookbook#target-should-only-be-used-in-select-cases
   app "texstudio-#{version}-osx#{arch}.app"
 
