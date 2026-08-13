@@ -17,7 +17,9 @@ jobs:
   test-bot:
     strategy:
       matrix:
-        os: [ macos-26 ]
+        # The `brew tap-new` generated workflow only includes `macos-26`, but
+        # since I'm still on `macos-15-intel`...
+        os: [ macos-15-intel, macos-26 ]
         include:
           - os: ubuntu-latest
             container:
