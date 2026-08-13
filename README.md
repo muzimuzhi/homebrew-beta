@@ -1,6 +1,6 @@
 # Homebrew tap `muzimuzhi/beta`
 
-Due to too few downloads, on 5 May 2020, cask `texstudio-beta` (2.12.22beta2) was [removed] from [`homebrew-cask-version`][homebrew-cask-version], the official repo for pre-release casks.
+Due to too few downloads, on 5 May 2020, cask `texstudio-beta` (2.12.22beta2) was [removed] from [`homebrew-cask-version`][homebrew-cask-version], the official repo for pre-release casks. (The repo was first archived in [Homebrew 4.3.0][homebrew-4.3.0] in May 2024, then in someday deleted.)
 
 So there is this homebrew tap.
 
@@ -52,3 +52,5 @@ brew tap-new --github-packages --no-git USER/REPO
     https://github.com/Homebrew/homebrew-cask-versions/commit/4f03b850c8ca7407b42490a3a53c1c215ebc6d5d
 [homebrew-cask-version]:
     https://github.com/Homebrew/homebrew-cask-versions
+[homebrew-4.3.0]:
+    https://brew.sh/2024/05/14/homebrew-4.3.0/
