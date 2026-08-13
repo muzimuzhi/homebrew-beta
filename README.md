@@ -8,8 +8,8 @@ So there is this homebrew tap.
 
 ```bash
 # installation
-# note that `texstudio-beta` conflicts with `texstudio`
-brew install muzimuzhi/beta/texstudio-beta
+# note that `texstudio@beta` doesn't conflicts with `texstudio`
+brew install muzimuzhi/beta/texstudio@beta
 
 # formula upgrading
 brew bump-formula-pr muzimuzhi/beta/FORMULA --version=VERSION [--write-only]
