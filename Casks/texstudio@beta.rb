@@ -15,6 +15,9 @@ cask "texstudio@beta" do
 
   livecheck do
     # based on https://docs.brew.sh/Brew-Livecheck#githubreleases-strategy-block
+    # see also livecheck stanzas in other casks recorded in the
+    # `github_prerelease_allowlist.json` in Homebrew/cask tap
+    # https://github.com/Homebrew/homebrew-cask/blob/main/audit_exceptions/github_prerelease_allowlist.json
     url :url
     regex(/^v?(\d+(?:\.\d+)+(?:(?:alpha|beta|rc)\d+)?)$/i)
     strategy :github_releases do |json, regex|
@@ -27,11 +30,6 @@ cask "texstudio@beta" do
         match[1]
       end
     end
-    # :page_match can just list pre-releases
-    # learnt from https://github.com/Homebrew/homebrew-cask-versions/blob/948fe36253038658716087daac8c4b1f0ae0f7c3/Casks/utm-beta.rb#L11-L15
-    #   url "https://github.com/texstudio-org/texstudio/releases?q=prerelease%3Atrue&expanded=true"
-    #   regex(%r{href=["']?[^"' >]*?/tag/v?(\d+(?:\.\d+)+[^"' >]*)["' >]}i)
-    #   strategy :page_match
   end
 
   # "texstudio@beta" does not conflict with cask "texstudio" due to different
