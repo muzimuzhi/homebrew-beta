@@ -32,13 +32,19 @@ cask "texstudio@beta" do
     end
   end
 
-  # "texstudio@beta" does not conflict with cask "texstudio" due to different
-  # version string in the app name, so no `conflicts_with` stanza is needed.
+  # Although the app names differ, they share the same Bundle ID `texstudio`, so strictly speaking,
+  # they still conflict with each other.
+  conflicts_with cask: "texstudio"
   depends_on macos: :ventura
 
   # It's NOT recommended to rename the target only for removing version numbers.
   # https://docs.brew.sh/Cask-Cookbook#target-should-only-be-used-in-select-cases
   app "texstudio-#{version}-osx#{arch}.app"
+
+  # Check Bundle ID with `brew list-running-app-ids`. Locally cloned cask tap needed, run
+  # `brew tap --force homebrew/cask`.
+  # https://docs.brew.sh/Cask-Cookbook#uninstall-quit
+  uninstall quit: "texstudio"
 
   # learnt from https://github.com/Homebrew/homebrew-cask/blob/03a0edb4616198f6f64b285dbf842bc3b73a7f31/Casks/p/parallels.rb#L36-L41
   postflight do
