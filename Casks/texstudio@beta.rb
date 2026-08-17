@@ -22,7 +22,7 @@ cask "texstudio@beta" do
     regex(/^v?(\d+(?:\.\d+)+(?:alpha|beta|rc)\d+)$/i)
     strategy :github_releases do |json, regex|
       json.map do |release|
-        next unless release["prerelease"]
+        next if release["draft"] || !release["prerelease"]
 
         match = release["tag_name"]&.match(regex)
         next if match.blank?
