@@ -38,6 +38,28 @@ jobs:
           HOMEBREW_GIT_COMMITTER_NAME: ${{ steps.git_setup.outputs.name }}
           HOMEBREW_GIT_COMMITTER_EMAIL: ${{ steps.git_setup.outputs.email }}
           TAP_NAME: ${{ steps.set-up-homebrew.outputs.tap-name }}
-        # NOTE: removed `--formulae` so it also bumps casks
-        #       https://docs.brew.sh/Manpage#bump-options-formulacask-
-        run: brew bump --no-fork --open-pr --bump-synced --tap="$TAP_NAME"
+        run: brew bump --no-fork --open-pr --formulae --bump-synced --tap="$TAP_NAME"
+
+  # bumping macOS-only casks needs to run on macOS
+  autobump-casks:
+    runs-on: macos-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@b35a29a0f83ee8b8ca07b219fc8db3d7bb88ab49 # 2026.08.10.2
+
+      - name: Set up git
+        id: git_setup
+        uses: Homebrew/actions/git-user-config@b35a29a0f83ee8b8ca07b219fc8db3d7bb88ab49 # 2026.08.10.2
+
+      - name: Bump formulae
+        env:
+          HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HOMEBREW_GIT_COMMITTER_NAME: ${{ steps.git_setup.outputs.name }}
+          HOMEBREW_GIT_COMMITTER_EMAIL: ${{ steps.git_setup.outputs.email }}
+          TAP_NAME: ${{ steps.set-up-homebrew.outputs.tap-name }}
+        # `brew bump` https://docs.brew.sh/Manpage#bump-options-formulacask-
+        run: brew bump --no-fork --open-pr --casks --bump-synced --tap="$TAP_NAME"
