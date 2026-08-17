@@ -15,6 +15,11 @@ cask "texstudio" do
 
   app "texstudio-#{version}-osx#{arch}.app"
 
+  postflight do
+    system_command "xattr",
+                   args: ["-dr", "com.apple.quarantine", "#{appdir}/texstudio-#{version}-osx#{arch}.app"]
+  end
+
   zap trash: [
     "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/texstudio.sfl*",
     "~/Library/Preferences/texstudio.plist",
