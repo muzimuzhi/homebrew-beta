@@ -1,6 +1,4 @@
-# texstudio cask: https://github.com/Homebrew/homebrew-cask/blob/HEAD/Casks/t/texstudio.rb
-
-cask "texstudio@beta" do
+cask "texstudio@all" do
   arch arm: "-m1"
 
   version "4.9.7rc1"
