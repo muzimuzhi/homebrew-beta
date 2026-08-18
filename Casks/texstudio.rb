@@ -8,7 +8,7 @@ cask "texstudio" do
   url "https://github.com/texstudio-org/texstudio/releases/download/#{version}/texstudio-#{version}-osx#{arch}.zip",
       verified: "github.com/texstudio-org/texstudio/"
   name "TeXstudio"
-  desc "LaTeX editor"
+  desc "Fully featured LaTeX editor"
   homepage "https://texstudio.org/"
 
   depends_on macos: :ventura

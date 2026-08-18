@@ -10,20 +10,16 @@ cask "texstudio@beta" do
   url "https://github.com/texstudio-org/texstudio/releases/download/#{version}/texstudio-#{version}-osx#{arch}.zip",
       verified: "github.com/texstudio-org/texstudio/"
   name "TeXstudio"
-  desc "Fully featured LaTeX editor, beta version"
+  desc "Fully featured LaTeX editor, both stable and beta versions"
   homepage "https://texstudio.org/"
 
   livecheck do
-    # based on https://docs.brew.sh/Brew-Livecheck#githubreleases-strategy-block
-    # see also livecheck stanzas in other casks recorded in the
-    # `github_prerelease_allowlist.json` in Homebrew/cask tap
-    # https://github.com/Homebrew/homebrew-cask/blob/main/audit_exceptions/github_prerelease_allowlist.json
     url :url
     regex(/^v?(\d+(?:\.\d+)+(?:alpha|beta|rc)\d+)$/i)
     strategy :github_releases do |json, regex|
       json.map do |release|
-        # accept non-draft prereleases only
-        next if release["draft"] || !release["prerelease"]
+        # accept both pre-releases and stable releases
+        next if release["draft"]
 
         match = release["tag_name"]&.match(regex)
         next if match.blank?
@@ -33,24 +29,17 @@ cask "texstudio@beta" do
     end
   end
 
-  # Although the app names differ, they share the same Bundle ID `texstudio`, so strictly speaking,
-  # they still conflict with each other.
   conflicts_with cask: "texstudio"
+  conflicts_with cask: "texstudio@beta"
   depends_on macos: :ventura
 
-  # It's NOT recommended to rename the target only for removing version numbers.
-  # https://docs.brew.sh/Cask-Cookbook#target-should-only-be-used-in-select-cases
   app "texstudio-#{version}-osx#{arch}.app"
 
-  # learnt from https://github.com/Homebrew/homebrew-cask/blob/03a0edb4616198f6f64b285dbf842bc3b73a7f31/Casks/p/parallels.rb#L36-L41
   postflight do
     system_command "xattr",
                    args: ["-dr", "com.apple.quarantine", "#{appdir}/texstudio-#{version}-osx#{arch}.app"]
   end
 
-  # Check Bundle ID with `brew list-running-app-ids`. Locally cloned cask tap needed, run
-  # `brew tap --force homebrew/cask`.
-  # https://docs.brew.sh/Cask-Cookbook#uninstall-quit
   uninstall quit: "texstudio"
 
   zap trash: [
