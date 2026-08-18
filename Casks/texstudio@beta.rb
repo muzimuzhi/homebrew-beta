@@ -19,7 +19,10 @@ cask "texstudio@beta" do
     # `github_prerelease_allowlist.json` in Homebrew/cask tap
     # https://github.com/Homebrew/homebrew-cask/blob/main/audit_exceptions/github_prerelease_allowlist.json
     url :url
-    regex(/^v?(\d+(?:\.\d+)+(?:alpha|beta|rc)\d+)$/i)
+    regex(/
+      ^v?(\d+(?:\.\d+)+            # version number
+      (?:(?:alpha|beta|rc)\d+)?)$  # optional pre-release identifier
+    /ix)
     strategy :github_releases do |json, regex|
       json.map do |release|
         # accept non-draft prereleases only

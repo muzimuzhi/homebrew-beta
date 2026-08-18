@@ -13,7 +13,10 @@ cask "texstudio@all" do
 
   livecheck do
     url :url
-    regex(/^v?(\d+(?:\.\d+)+(?:alpha|beta|rc)\d+)$/i)
+    regex(/
+      ^v?(\d+(?:\.\d+)+            # version number
+      (?:(?:alpha|beta|rc)\d+)?)$  # optional pre-release identifier
+    /ix)
     strategy :github_releases do |json, regex|
       json.map do |release|
         # accept both pre-releases and stable releases
