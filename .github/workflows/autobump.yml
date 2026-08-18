@@ -62,5 +62,7 @@ jobs:
           HOMEBREW_GIT_COMMITTER_NAME: ${{ steps.git_setup.outputs.name }}
           HOMEBREW_GIT_COMMITTER_EMAIL: ${{ steps.git_setup.outputs.email }}
           TAP_NAME: ${{ steps.set-up-homebrew.outputs.tap-name }}
+        # option `--full-name` is needed to avoid resolving to the same named
+        # cask in main `Homebrew/cask` tap
         # `brew bump` https://docs.brew.sh/Manpage#bump-options-formulacask-
-        run: brew bump --no-fork --open-pr --casks --bump-synced --tap="$TAP_NAME"
+        run: brew bump --no-fork --open-pr --casks --full-name --tap="$TAP_NAME"
