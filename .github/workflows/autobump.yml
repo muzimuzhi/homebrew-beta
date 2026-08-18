@@ -64,5 +64,6 @@ jobs:
           TAP_NAME: ${{ steps.set-up-homebrew.outputs.tap-name }}
         # option `--full-name` is needed to avoid resolving to the same named
         # cask in main `Homebrew/cask` tap
+        # see https://github.com/orgs/Homebrew/discussions/7015#discussioncomment-18056484
         # `brew bump` https://docs.brew.sh/Manpage#bump-options-formulacask-
         run: brew bump --no-fork --open-pr --casks --full-name --tap="$TAP_NAME"
