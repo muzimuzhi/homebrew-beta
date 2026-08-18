@@ -11,6 +11,8 @@ cask "texstudio" do
   desc "Fully featured LaTeX editor"
   homepage "https://texstudio.org/"
 
+  conflicts_with cask: "texstudio@beta"
+  conflicts_with cask: "texstudio@all"
   depends_on macos: :ventura
 
   app "texstudio-#{version}-osx#{arch}.app"
