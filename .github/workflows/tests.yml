@@ -17,8 +17,8 @@ jobs:
   test-bot:
     strategy:
       matrix:
-        # NOTE: also run on `macos-15-intel`, the OS-Arch I'm on
-        os: [ macos-15-intel, macos-26 ]
+        # NOTE: also run on an Intel macOS runner, the Arch I'm on
+        os: [ macos-26, macos-26-intel ]
         include:
           - os: ubuntu-latest
             container:
