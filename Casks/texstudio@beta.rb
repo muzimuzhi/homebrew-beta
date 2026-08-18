@@ -22,6 +22,7 @@ cask "texstudio@beta" do
     regex(/^v?(\d+(?:\.\d+)+(?:alpha|beta|rc)\d+)$/i)
     strategy :github_releases do |json, regex|
       json.map do |release|
+        # accept non-draft prereleases only
         next if release["draft"] || !release["prerelease"]
 
         match = release["tag_name"]&.match(regex)
@@ -35,6 +36,7 @@ cask "texstudio@beta" do
   # Although the app names differ, they share the same Bundle ID `texstudio`, so strictly speaking,
   # they still conflict with each other.
   conflicts_with cask: "texstudio"
+  conflicts_with cask: "texstudio@all"
   depends_on macos: :ventura
 
   # It's NOT recommended to rename the target only for removing version numbers.
