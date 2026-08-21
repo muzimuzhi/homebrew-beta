@@ -1,10 +1,20 @@
 version: 2
+
 updates:
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
       interval: weekly
+    ignore:
+      - dependency-name: Homebrew/actions/*
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: monthly
+    allow:
+      - dependency-name: Homebrew/actions/*
     groups:
-      github-actions:
+      homebrew-actions:
         patterns:
           - "*"
