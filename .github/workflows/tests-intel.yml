@@ -1,13 +1,13 @@
 # brew tap-new uses this file to generate a PR test workflow for the new tap
-name: brew test-bot
+name: brew test-bot (Intel macOS)
 
 on:
   push:
     branches:
       - main
     paths: &paths-spec
-      - "!Formula/*-intel.rb"
-      - "!.github/workflows/tests-intel.yml"
+      - "Formula/*-intel.rb"
+      - ".github/workflows/tests-intel.yml"
   pull_request:
     paths: *paths-spec
 
@@ -21,15 +21,10 @@ jobs:
   test-bot:
     strategy:
       matrix:
-        # NOTE: also run on an Intel macOS runner, the Arch I'm on
-        os: [ macos-26, macos-26-intel ]
-        include:
-          - os: ubuntu-latest
-            container:
-              image: ghcr.io/homebrew/brew:main
-              options: --privileged
+        # only run on Intel macOS runner to build the bottles missing from
+        # Homebrew/homebrew-core
+        os: [ macos-15-intel ]
     runs-on: ${{ matrix.os }}
-    container: ${{ fromJSON(toJSON(matrix.container)) }} # zizmor: ignore[unpinned-images]
     permissions:
       actions: read
       checks: read
@@ -39,7 +34,7 @@ jobs:
     steps:
       - name: Set up Homebrew
         id: set-up-homebrew
-        uses: Homebrew/actions/setup-homebrew@3cdb78d0f62ad29dd32de765782654f4eedea607 # 2026.08.31.1
+        uses: Homebrew/actions/setup-homebrew@a657b8b0cd35d0f65cce41fce9b24cf054b49869 # 2026.08.24.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
