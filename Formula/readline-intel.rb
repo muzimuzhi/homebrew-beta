@@ -68,7 +68,8 @@ class ReadlineIntel < Formula
     end
   end
 
-  no_autobump! because: :incompatible_version_format
+  ## `no_autobump!` can only be used in official Homebrew taps
+  # no_autobump! because: :incompatible_version_format
 
   bottle do
     sha256 cellar: :any,                 arm64_tahoe:   "1c6234c033c83ea742d50aa45fd60821947fa800d5cadecb0a1aa045564bb7d1"
