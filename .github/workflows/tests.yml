@@ -50,6 +50,21 @@ jobs:
           key: ${{ matrix.os }}-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
           restore-keys: ${{ matrix.os }}-rubygems-
 
+      # see comments in tests-intel.yml for why we need this
+      - name: Pre-download gmp source
+        if: runner.os == 'macOS' && runner.arch == 'X64'
+        run: |
+          set -euxo pipefail
+          
+          # url taken from https://github.com/Homebrew/homebrew-core/blob/75412ee44c0846f28739663c1c0d822ec949fb93/Formula/g/gnuplot.rb#L4
+          url_hash=$(echo -n "https://ftpmirror.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz" | sha256sum | cut -d' ' -f1)
+          # see release https://github.com/muzimuzhi/homebrew-beta/releases/tag/gmp-6.3.0
+          gh release download -R ${{ github.repository }} gmp-6.3.0
+          mkdir -p "$(brew --cache)/downloads"
+          mv gmp-6.3.0.tar.xz "$(brew --cache)/downloads/${url_hash}--gmp-6.3.0.tar.xz"
+
+          brew --cache --build-from-source gmp
+
       - run: brew test-bot --only-cleanup-before
 
       - run: brew test-bot --only-setup
