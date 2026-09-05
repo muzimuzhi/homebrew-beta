@@ -45,6 +45,32 @@ jobs:
           key: ${{ matrix.os }}-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
           restore-keys: ${{ matrix.os }}-rubygems-
 
+      # - `brew test-bot --only-tap-syntax` needs `gmp` as a dep of
+      #   `shellcheck`, which is then a dep of `actionlint` formula
+      # - Intel macOS needs to build it from source, although `gmp` was last
+      #   released in Jul 2023
+      #   Thanks to Homebrew/homebrew-core@16f45d9 (gmp: add network sandboxing, 2026-09-02)
+      #   https://github.com/Homebrew/homebrew-core/commit/16f45d925fc05ec27ae7c3762739452d12448750
+      #   https://github.com/Homebrew/homebrew-core/commit/907630df1b29c17abfc17c803ada80dfe98a1221
+      # - GitHub Actions runner is unable to download gmp-6.3.0 source from
+      #   neither ftpmirror.gnu.org nor gmplib.org, so we have to
+      #   pre-download it
+      #   https://github.com/actions/runner-images/issues/7901
+      #   https://docs.brew.sh/Tips-and-Tricks#pre-download-a-file-for-a-formula
+      - name: Pre-download gmp source
+        if: runner.os == 'macOS' && runner.arch == 'X64'
+        run: |
+          set -euxo pipefail
+          
+          # url taken from https://github.com/Homebrew/homebrew-core/blob/75412ee44c0846f28739663c1c0d822ec949fb93/Formula/g/gnuplot.rb#L4
+          url_hash=$(echo -n "https://ftpmirror.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz" | sha256sum | cut -d' ' -f1)
+          # see release https://github.com/muzimuzhi/homebrew-beta/releases/tag/gmp-6.3.0
+          gh release download -R ${{ github.repository }} gmp-6.3.0
+          mkdir -p "$(brew --cache)/downloads"
+          mv gmp-6.3.0.tar.xz "$(brew --cache)/downloads/${url_hash}--gmp-6.3.0.tar.xz"
+
+          brew --cache --build-from-source gmp
+
       - run: brew test-bot --only-cleanup-before
 
       - run: brew test-bot --only-setup
@@ -59,6 +85,8 @@ jobs:
           base64_token=$(echo -n "${TOKEN}" | base64 | tr -d "\n")
           echo "::add-mask::${base64_token}"
           echo "token=${base64_token}" >> "${GITHUB_OUTPUT}"
+        timeout-minutes: 10
+
       - run: brew test-bot --only-formulae --root-url=https://ghcr.io/v2/muzimuzhi/beta-test
         if: github.event_name == 'pull_request'
         env:
