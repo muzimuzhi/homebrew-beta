@@ -46,6 +46,19 @@ jobs:
           key: ${{ matrix.os }}-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
           restore-keys: ${{ matrix.os }}-rubygems-
 
+      - name: Install actionlint from maintained fork
+        if: runner.os == 'macOS' && runner.arch == 'X64'
+        run: |
+          brew install kjanat/tap/actionlint
+
+      - name: Pretend actionlint core formula is installed
+        if: runner.os == 'macOS' && runner.arch == 'X64'
+        run: |
+          version=1.7.12
+          mkdir -p "$(brew --cellar)/actionlint/${version}"
+          touch "$(brew --cellar)/actionlint/${version}/placeholder"
+          brew info actionlint
+
       # - `brew test-bot --only-tap-syntax` needs `gmp` as a dep of
       #   `shellcheck`, which is then a dep of `actionlint` formula
       # - Intel macOS needs to build it from source, although `gmp` was last
@@ -58,19 +71,19 @@ jobs:
       #   pre-download it
       #   https://github.com/actions/runner-images/issues/7901
       #   https://docs.brew.sh/Tips-and-Tricks#pre-download-a-file-for-a-formula
-      - name: Pre-download gmp source
-        if: runner.os == 'macOS' && runner.arch == 'X64'
-        run: |
-          set -euxo pipefail
+      # - name: Pre-download gmp source
+      #   if: runner.os == 'macOS' && runner.arch == 'X64'
+      #   run: |
+      #     set -euxo pipefail
           
-          # url taken from https://github.com/Homebrew/homebrew-core/blob/75412ee44c0846f28739663c1c0d822ec949fb93/Formula/g/gnuplot.rb#L4
-          url_hash=$(echo -n "https://ftpmirror.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz" | sha256sum | cut -d' ' -f1)
-          # see release https://github.com/muzimuzhi/homebrew-beta/releases/tag/gmp-6.3.0
-          gh release download -R ${{ github.repository }} gmp-6.3.0
-          mkdir -p "$(brew --cache)/downloads"
-          mv gmp-6.3.0.tar.xz "$(brew --cache)/downloads/${url_hash}--gmp-6.3.0.tar.xz"
+      #     # url taken from https://github.com/Homebrew/homebrew-core/blob/75412ee44c0846f28739663c1c0d822ec949fb93/Formula/g/gnuplot.rb#L4
+      #     url_hash=$(echo -n "https://ftpmirror.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz" | sha256sum | cut -d' ' -f1)
+      #     # see release https://github.com/muzimuzhi/homebrew-beta/releases/tag/gmp-6.3.0
+      #     gh release download -R ${{ github.repository }} gmp-6.3.0
+      #     mkdir -p "$(brew --cache)/downloads"
+      #     mv gmp-6.3.0.tar.xz "$(brew --cache)/downloads/${url_hash}--gmp-6.3.0.tar.xz"
 
-          brew --cache --build-from-source gmp
+      #     brew --cache --build-from-source gmp
 
       - run: brew test-bot --only-cleanup-before
 
