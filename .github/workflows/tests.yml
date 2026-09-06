@@ -5,11 +5,7 @@ on:
   push:
     branches:
       - main
-    paths: &paths-spec
-      - "!Formula/*-intel.rb"
-      - "!.github/workflows/tests-intel.yml"
   pull_request:
-    paths: *paths-spec
 
 permissions: {}
 
@@ -22,7 +18,7 @@ jobs:
     strategy:
       matrix:
         # NOTE: also run on an Intel macOS runner, the Arch I'm on
-        os: [ macos-26, macos-26-intel ]
+        os: [ macos-26, macos-15-intel ]
         include:
           - os: ubuntu-latest
             container:
@@ -50,7 +46,18 @@ jobs:
           key: ${{ matrix.os }}-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
           restore-keys: ${{ matrix.os }}-rubygems-
 
-      # see comments in tests-intel.yml for why we need this
+      # - `brew test-bot --only-tap-syntax` needs `gmp` as a dep of
+      #   `shellcheck`, which is then a dep of `actionlint` formula
+      # - Intel macOS needs to build it from source, although `gmp` was last
+      #   released in Jul 2023
+      #   Thanks to Homebrew/homebrew-core@16f45d9 (gmp: add network sandboxing, 2026-09-02)
+      #   https://github.com/Homebrew/homebrew-core/commit/16f45d925fc05ec27ae7c3762739452d12448750
+      #   https://github.com/Homebrew/homebrew-core/commit/907630df1b29c17abfc17c803ada80dfe98a1221
+      # - GitHub Actions runner is unable to download gmp-6.3.0 source from
+      #   neither ftpmirror.gnu.org nor gmplib.org, so we have to
+      #   pre-download it
+      #   https://github.com/actions/runner-images/issues/7901
+      #   https://docs.brew.sh/Tips-and-Tricks#pre-download-a-file-for-a-formula
       - name: Pre-download gmp source
         if: runner.os == 'macOS' && runner.arch == 'X64'
         run: |
