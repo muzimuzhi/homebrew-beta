@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         # NOTE: also run on an Intel macOS runner, the Arch I'm on
-        os: [ macos-26, macos-26-intel ]
+        os: [ macos-26, macos-15-intel ]
         include:
           - os: ubuntu-latest
             container:
@@ -32,6 +32,9 @@ jobs:
       contents: read
       packages: read
       pull-requests: read
+    env:
+      HOMEBREW_DEBUG: 1
+      HOMEBREW_VERBOSE: 1
     steps:
       - name: Set up Homebrew
         id: set-up-homebrew
@@ -51,6 +54,8 @@ jobs:
       - run: brew test-bot --only-setup
 
       - run: brew test-bot --only-tap-syntax
+        if: "! (runner.os == 'macOS' && runner.arch == 'X64')"
+
       - name: Base64-encode GITHUB_TOKEN for HOMEBREW_DOCKER_REGISTRY_TOKEN
         id: base64-encode
         if: github.event_name == 'pull_request'
