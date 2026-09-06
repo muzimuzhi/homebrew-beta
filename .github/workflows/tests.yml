@@ -32,6 +32,9 @@ jobs:
       contents: read
       packages: read
       pull-requests: read
+    env:
+      HOMEBREW_DEBUG: 1
+      HOMEBREW_VERBOSE: 1
     steps:
       - name: Set up Homebrew
         id: set-up-homebrew
