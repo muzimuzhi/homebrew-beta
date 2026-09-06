@@ -49,7 +49,11 @@ jobs:
       - name: Install actionlint from maintained fork
         if: runner.os == 'macOS' && runner.arch == 'X64'
         run: |
-          brew install kjanat/tap/actionlint
+          if brew info --cask kjanat/tap/actionlint &>/dev/null; then
+            brew install kjanat/tap/actionlint
+          else
+            brew install kjanat/actionlint/actionlint
+          fi
 
       - name: Pretend actionlint core formula is installed
         if: runner.os == 'macOS' && runner.arch == 'X64'
