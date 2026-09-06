@@ -1,9 +1,9 @@
 cask "texstudio@all" do
   arch arm: "-m1"
 
-  version "4.9.8beta2"
-  sha256 arm:   "a405c998ec2d121a46c3edb9aa344187c5466d90ac341d8cbe401a87ac9f0534",
-         intel: "5e0c2effd3c12ae2aee266349deb082ff98d8d5b16de84621a850f3367330135"
+  version "4.9.8rc1"
+  sha256 arm:   "a10bafe00d47a64db5a25fe0c0bd0317e1ccfc2d84acaf3388ed34a4f123dc3b",
+         intel: "4b598d4b5af805350ce1a9dc66f259175446472b72a765a1b7dd843f04b6e381"
 
   url "https://github.com/texstudio-org/texstudio/releases/download/#{version}/texstudio-#{version}-osx#{arch}.zip"
   name "TeXstudio"
