@@ -1,4 +1,4 @@
-cask "texstudio@all" do
+cask "texstudio@all2" do
   arch arm: "-m1"
 
   version "4.9.8rc1"
@@ -32,6 +32,7 @@ cask "texstudio@all" do
   conflicts_with cask: [
     "Homebrew/cask/texstudio",
     "texstudio-org/texstudio/texstudio",
+    "texstudio-org/texstudio/texstudio@all",
     "texstudio-org/texstudio/texstudio@beta",
   ]
   depends_on macos: :ventura
