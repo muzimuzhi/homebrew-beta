@@ -1,9 +1,9 @@
 cask "texstudio@all2" do
   arch arm: "-m1"
 
-  version "4.9.9beta2"
-  sha256 arm:   "60c632bd7389abcdbc76707bb6a34976344f01eff677234443189c9fa88d642f",
-         intel: "fd3e9879ba152198da9d5d2020e2914ef593de335aff0452d283dabc1759795f"
+  version "4.9.9rc1"
+  sha256 arm:   "c5aec44617d535a7f627ecf87c455bcde9cebcfa3429d018e571d81786f286bf",
+         intel: "0bbd47d5c022522e498786d9be71116af26b190b106365b38f9f60e4fa71f21b"
 
   url "https://github.com/texstudio-org/texstudio/releases/download/#{version}/texstudio-#{version}-osx#{arch}.zip"
   name "TeXstudio"
@@ -35,7 +35,10 @@ cask "texstudio@all2" do
     "texstudio-org/texstudio/texstudio@all",
     "texstudio-org/texstudio/texstudio@beta",
   ]
-  depends_on macos: :ventura
+  # more specifically, macOS 14.4 or higher, required by Qt 6.12.0
+  # https://doc.qt.io/qt-6/macos.html
+  # texstudio-org/texstudio@853b847 (update qt/poppler, 2026-10-09)
+  depends_on macos: :sonoma
 
   app "texstudio-#{version}-osx#{arch}.app"
 
